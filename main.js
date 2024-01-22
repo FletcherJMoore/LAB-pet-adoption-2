@@ -265,15 +265,20 @@ domString += `<div class="card" style="width: 18rem;">
 
 //targetingApp.innerHTML = domString;
 
-const filter = (pets, typeString) => {
-const petsArray = [];
+const filter = (array, type) => {
+const typeArray = [];
+// array.forEach((item) =>{
+// if (item.type === type) {
+// typeArray.push(item)
+// }
+// });
 
-for (const pet of pets) {
-  if (pet.type === typeString) {
-    petsArray.push(pet);
+for (const pet of array) {
+  if (array.type === type) {
+    typeArray.push(pet);
   }
 }
-return petsArray;
+return typeArray;
 };
 
 
@@ -291,34 +296,41 @@ cardsOnDom(pets)
 showDinoButton.addEventListener("click", () => {
 const allDinos = filter(pets, "dino");
 cardsOnDom(allDinos);
+//function filterDinos () {
+// const filterPets = pets.filter(type.dino === "dino");
+//return filterPets;
+//}
 });
+
 
 showCatButton.addEventListener("click", ()  => {
 const allCats = filter(pets, "cat");
 cardsOnDom(allCats);
+//function filterCats () {
+// const filterPets = pets.filter(type.cat === "cats");
+//return filterPets;
+//}
 });
 
 
 showDogButton.addEventListener("click", () => {
 const allDogs = filter(pets, "dog");
 cardsOnDom(allDogs);
+//function filterDogs () {
+//const filterPets = pets.filter(type.dog === "dogs");
+//return filterPets;
+//}
 });
 
 
-//function filterDinos () {
-// const filterPets = pets.filter(pets.type === "dino");
-//return filterPets;
-//}
-
-
-//function filterCats () {
-// const filterPets = pets.filter(pets.type === "cats");
-//return filterPets;
-//}
-
-
-//function filterDogs () {
-//const filterPets = pets.filter(pets.type === "cats");
-//return filterPets;
-//}
 cardsOnDom(pets);
+
+const addPetObj = {
+  id: pets.length + 1,
+  name: document.querySelector("#name").value,
+  email: document.querySelector("#email").value,
+  color: document.querySelector("#color").value,
+  specialSkill: document.querySelector("#specialSkill").value,
+  image: document.querySelector("#imageUrl").value,
+
+}
