@@ -2,7 +2,7 @@ body{
   text-align: center;
 }
 
-#app{
+#animals{
   display: flex;
   flex-flow: row wrap;
 }

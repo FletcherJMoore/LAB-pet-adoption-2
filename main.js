@@ -130,10 +130,10 @@ const pets = [
   {
    id: 17,
     name: "Muffin",
-    color: "Brown and White",
+    color: "Brown",
     specialSkill: "Doesn't get angry at guests.",
     typeOfPet: "cat",
-    imageUrl: "http://www.funnycatsite.com/pictures/Close_Up_Yawn.jpg"
+    imageUrl: "https://t4.ftcdn.net/jpg/02/55/81/17/360_F_255811711_MaM8Y9ppXidnanreDdDPmE6FXIOq0TED.jpg"
   },
   {
     id: 18,
@@ -146,10 +146,10 @@ const pets = [
   {
     id: 19,
     name: "Callie",
-    color: "Black and White",
+    color: "White",
     specialSkill: "Listens attentively to boring stories.",
     typeOfPet: "dog",
-    imageUrl: "http://dailynewsdig.com/wp-content/uploads/2014/03/Creative-And-Funny-Dog-Stock-Photography-Pictures-2.jpg"
+    imageUrl: "https://images.saymedia-content.com/.image/t_share/MTk2NTgzMjA1NDIyMjQ1Njk0/five-best-small-white-dog-breeds.jpg"
   },
   {
     id: 20,
@@ -157,7 +157,7 @@ const pets = [
     color: "White",
     specialSkill: "Uses litter box at appropriate hours.",
     typeOfPet: "cat",
-    imageUrl: "http://www.funnycatsite.com/pictures/Lazy_White_Cat.jpg"
+    imageUrl: "https://www.catster.com/wp-content/uploads/2014/08/An-albino-cat.jpg"
   },
   {
     id: 21,
@@ -189,7 +189,7 @@ const pets = [
     color: "Brown",
     specialSkill: "Is loving with all animals.",
     typeOfPet: "dog",
-    imageUrl: "http://www.dogbreedplus.com/dog_breeds/images/basset-hound-4.jpg"
+    imageUrl: "https://a-z-animals.com/media/basset-hound-4.jpg"
   },
   {
     id: 25,
@@ -252,20 +252,22 @@ const cardsOnDom = (pets) =>{
 let domString = ""
 for (const pet of pets) {
 domString += `<div class="card" style="width: 18rem;">
-    <img src=${pets.imageUrl} class="card-img-top" alt=${pets.name}>
+    <img src="${pet.imageUrl}" class="card-img-top" alt="...">
     <div class="card-body">
       <h5 class="card-title">${pet.name}</h5>
-      <h6>${pet.type}</h6>
+      <h6>${pet.typeOfPet}</h6>
       <h6>${pet.color}</h6>
       <p class="card-text">${pet.specialSkill}</p>
+      <button class="btn-danger-btn" id="delete--${pet.id}" background-color="red">Delete</button>
     </div>
   </div>`;
 }
+renderToDom("#animals", domString)
 };
 
 //targetingApp.innerHTML = domString;
 
-const filter = (array, type) => {
+const filter = (type) => {
 const typeArray = [];
 // array.forEach((item) =>{
 // if (item.type === type) {
@@ -273,8 +275,8 @@ const typeArray = [];
 // }
 // });
 
-for (const pet of array) {
-  if (array.type === type) {
+for (const pet of pets) {
+  if (pet.typeOfPet === type) {
     typeArray.push(pet);
   }
 }
@@ -288,49 +290,86 @@ const showCatButton = document.querySelector("#cat");
 const showDogButton = document.querySelector("#dog");
 
 
-showAllButton.addEventListener("click", () => {
-cardsOnDom(pets)
-//targetingApp.innerHTML(pets);
+showAllButton.addEventListener("click", (e) => {
+  console.log(e.target.id);
+  cardsOnDom(pets)
+ targetingApp.innerHTML(pets);
 });
 
-showDinoButton.addEventListener("click", () => {
-const allDinos = filter(pets, "dino");
+showDinoButton.addEventListener("click", (e) => {
+const allDinos = filter("dino");
 cardsOnDom(allDinos);
-//function filterDinos () {
-// const filterPets = pets.filter(type.dino === "dino");
-//return filterPets;
+ //function filterDinos () {
+ //const filterPets = pets.filter(type.dino === "dino");
+ //return filterPets;
 //}
 });
 
 
-showCatButton.addEventListener("click", ()  => {
-const allCats = filter(pets, "cat");
+showCatButton.addEventListener("click", (e)  => {
+const allCats = filter("cat");
 cardsOnDom(allCats);
-//function filterCats () {
-// const filterPets = pets.filter(type.cat === "cats");
-//return filterPets;
+ //function filterCats () {
+ //const filterPets = pets.filter(type.cat === "cats");
+ //return filterPets;
 //}
 });
 
 
-showDogButton.addEventListener("click", () => {
-const allDogs = filter(pets, "dog");
+showDogButton.addEventListener("click", (e) => {
+const allDogs = filter("dog");
 cardsOnDom(allDogs);
-//function filterDogs () {
-//const filterPets = pets.filter(type.dog === "dogs");
-//return filterPets;
+ //function filterDogs () {
+ //const filterPets = pets.filter(type.dog === "dogs");
+ //return filterPets;
 //}
 });
 
 
-cardsOnDom(pets);
 
-const addPetObj = {
-  id: pets.length + 1,
-  name: document.querySelector("#name").value,
-  email: document.querySelector("#email").value,
-  color: document.querySelector("#color").value,
-  specialSkill: document.querySelector("#specialSkill").value,
-  image: document.querySelector("#imageUrl").value,
+const form = document.querySelector("form")
 
+const createPet = (e) => {
+  e.preventDefault();
+    
+  const newPet = {
+    id: pets.length + 1,
+    name: document.querySelector("#name").value,
+    email: document.querySelector("#email").value,
+    typeOfPet: document.querySelector("#type-of-pet").value,
+    color: document.querySelector("#color").value,
+    specialSkill: document.querySelector("#specialSkill").value,
+    imageUrl: document.querySelector("#image").value
 }
+
+pets.push(newPet);
+cardsOnDom(pets);
+form.reset();
+};
+
+form.addEventListener("submit", createPet);
+
+
+
+
+const pet = document.querySelector("#animals");
+
+pet.addEventListener("click", (e) => {
+
+if (e.target.id.includes("delete")) {
+  const [ , id] = e.target.id.split("--");
+
+const index = pets.findIndex(e => e.id === Number(id));
+
+pets.splice(index, 1);
+
+cardsOnDom(pets)
+}
+});
+
+const startApp = () => {
+cardsOnDom(pets);
+};
+
+
+startApp();
