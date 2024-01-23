@@ -1,0 +1,64 @@
+body{
+  text-align: center;
+}
+
+#animals{
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.card {
+  margin: 10px;
+}
+
+.btnShowAll{
+  background-color: blue;
+  color: white;
+}
+
+.btnShowAll:hover{
+  background-color: rgb(88, 88, 255);
+}
+
+.btnShowAll:active{
+  background-color: rgb(0, 0, 160);
+}
+
+.btnDino{
+  background-color: green;
+  color: white;
+}
+
+.btnDino:hover{
+  background-color: rgb(13, 187, 13);
+}
+
+.btnDino:active{
+  background-color: rgb(0, 76, 0);
+}
+
+.btnCat{
+  background-color: orange;
+  color: white;
+}
+
+.btnCat:hover{
+  background-color: rgb(233, 177, 72);
+}
+
+.btnCat:active{
+  background-color: rgb(173, 113, 1);
+}
+
+.btnDog{
+  background-color: brown;
+  color: white;
+}
+
+.btnDog:hover{
+  background-color: rgb(230, 71, 71);
+}
+
+.btnDog:active{
+  background-color: rgb(116, 28, 28);
+}
